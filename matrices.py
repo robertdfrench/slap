@@ -20,11 +20,11 @@ def main():
 
     def f(v):
         assert len(v) == 2
-        return [v[1], v[0]]
+        return [v[1], 2*v[0]]
 
     C = [
         [0, 1],
-        [1, 0]
+        [2, 0]
     ]
 
     v = [4, 5]
