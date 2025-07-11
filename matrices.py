@@ -1,3 +1,41 @@
+def main():
+    A = [
+        [1, 2],
+        [3, 4]
+    ]
+
+    B = [
+        [4, 3],
+        [2, 1]
+    ]
+
+    # Print A + B
+    print(add_matrices(A,B))
+
+    # Print the SECOND column of B (computers count from zero)
+    print(matrix_column(B,1))
+
+    # Print A * B
+    print(mat_mul(A,B))
+
+    def f(v):
+        assert len(v) == 2
+        return [v[1], v[0]]
+
+    C = [
+        [0, 1],
+        [1, 0]
+    ]
+
+    v = [4, 5]
+
+    # The linear map f and the matrix C have the same effect on
+    # their input vectors.
+    print(f(v))
+    print(apply_map(C, v))
+
+
+
 # For two vectors with "real" values, we define their sum as
 # follows:
 def add_vectors(x, y):
@@ -13,7 +51,7 @@ def scalar_multiplication(a, x):
 
 
 # The inner product of two vectors:
-def inner_product(x, y):
+def dot_product(x, y):
     n = len(x)
     assert n == len(y)
     return sum([x[i] * y[i] for i in range(n)])
@@ -45,29 +83,20 @@ def matrix_column(A, j):
     return [A[i][j] for i in range(n)]
 
 
+def apply_map(A, x):
+    assert len(A) == len(x)
+    return [
+        dot_product(A[i], x) for i in range(len(x))
+    ]
+
 def mat_mul(A, B):
     assert len(A[0]) == len(B)
     n = len(A)
     m = len(B[0])
     return [
-        [
-            inner_product(A[i], matrix_column(B, j)) for j in range(m)
-        ] for i in range(n)
+        apply_map(A, matrix_column(B, j)) for j in range(m)
     ]
 
-A = [
-    [1, 2],
-    [3, 4]
-]
 
-B = [
-    [4, 3],
-    [2, 1]
-]
-
-
-print(add_matrices(A,B))
-
-print(matrix_column(B,1))
-
-print(mat_mul(A,B))
+if __name__ == "__main__":
+    main()
